@@ -1,28 +1,21 @@
 (define (domain logistic-strips)
    (:predicates 
         (LOCATION ?x) (PACKAGE ?x) (TRUCK ?x)
-		(at-location ?x) (at-package ?x ?y) 
+		(truck-at-loc ?x) (package-at-loc ?x ?y) 
         (carry ?x ?y))
-
-
-   (:action move 
-        :parameters (?x ?y)
+   
+    (:action move :parameters (?x ?y)
 		:precondition (and (LOCATION ?x) (LOCATION ?y)
-			    (at-location ?x))
-		:effect (and (at-location ?y) (not (at-location ?x)) ) )
+				(truck-at-loc ?x) )
+		:effect (and (truck-at-loc ?y) (not (truck-at-loc ?x)) ) )
 
-    (:action pick-up 
-        :parameters (?x ?y)
+    (:action pick-up :parameters (?x ?y)
 		:precondition (and (PACKAGE ?x) (LOCATION ?y)
-				(at-package ?x) (at-location ?y))
-		:effect (and (load ?x ?y) (not (at-package ?x ?y)) ) )
+				(package-at-loc ?x) (truck-at-loc ?y) )
+		:effect (and (carry ?x ?y) (not (package-at-loc ?x ?y)) ) )
 
-    
-    (:action drop 
-        :parameters (?x ?y)
+    (:action drop :parameters (?x ?y)
 		:precondition (and (PACKAGE ?x) (LOCATION ?y)
-				(at-location ?y))
-		:effect (and (not (carry ?x ?y)) (at-package ?x ?y) ) )
+				(truck-at-loc ?y)
+		:effect (and (not (carry ?x ?y)) (package-at-loc ?x ?y) ) ))
 )
-
-
