@@ -1,0 +1,10 @@
+(define (problem strips-logistic2)
+   (:domain logistic-strips)
+   (:objects locationa locationb locationc package1 truck1)
+   (:init (LOCATION Tampines) (LOCATION Bedok) (LOCATION Changi)
+       (PACAKGE Package1) 
+       (TRUCK Truck1)
+       (at-location Tampines)
+       (at-package Bedok))
+
+   (:goal (and (at-package Package1 Changi) )) )
